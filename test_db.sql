@@ -2,10 +2,10 @@
 -- version 4.4.13.1
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Час створення: Жов 28 2016 р., 17:35
--- Версія сервера: 5.5.52-0+deb8u1
--- Версія PHP: 5.6.26-0+deb8u1
+-- Host: localhost
+-- Generation Time: Oct 28, 2016 at 05:38 PM
+-- Server version: 5.5.52-0+deb8u1
+-- PHP Version: 5.6.26-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База даних: `test_db`
+-- Database: `test_db`
 --
 CREATE DATABASE IF NOT EXISTS `test_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `test_db`;
@@ -25,7 +25,7 @@ USE `test_db`;
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `roster_table`
+-- Table structure for table `roster_table`
 --
 
 CREATE TABLE IF NOT EXISTS `roster_table` (
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `roster_table` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Дамп даних таблиці `roster_table`
+-- Dumping data for table `roster_table`
 --
 
 INSERT INTO `roster_table` (`id`, `first_name`, `last_name`, `number`, `position`, `age`, `player_profile`, `image_profile`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `roster_table` (`id`, `first_name`, `last_name`, `number`, `position
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `users_tabl`
+-- Table structure for table `users_tabl`
 --
 
 CREATE TABLE IF NOT EXISTS `users_tabl` (
@@ -62,39 +62,39 @@ CREATE TABLE IF NOT EXISTS `users_tabl` (
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Дамп даних таблиці `users_tabl`
+-- Dumping data for table `users_tabl`
 --
 
 INSERT INTO `users_tabl` (`id`, `username`, `email`, `password`, `added`) VALUES
 (63, 'Test', 'test@mail.com', '$2y$14$9Cy0Lz/8V.bBDNEaDb9gPe4ts2yXO0JelP2mNfff//DSlrJUvfLz6', '2016-10-28 14:04:06');
 
 --
--- Індекси збережених таблиць
+-- Indexes for dumped tables
 --
 
 --
--- Індекси таблиці `roster_table`
+-- Indexes for table `roster_table`
 --
 ALTER TABLE `roster_table`
   ADD PRIMARY KEY (`id`);
 
 --
--- Індекси таблиці `users_tabl`
+-- Indexes for table `users_tabl`
 --
 ALTER TABLE `users_tabl`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT для збережених таблиць
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT для таблиці `roster_table`
+-- AUTO_INCREMENT for table `roster_table`
 --
 ALTER TABLE `roster_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT для таблиці `users_tabl`
+-- AUTO_INCREMENT for table `users_tabl`
 --
 ALTER TABLE `users_tabl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
