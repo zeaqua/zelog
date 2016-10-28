@@ -8,8 +8,11 @@
 require_once(Session::getHomeFolder()."oop/traits.php");
 
 abstract class Model {
+//--------------------------------------//
+//	    Parent Model		//
+//	include DB functions		//
+//--------------------------------------//
 	use DBFunctions;
-
 }
 
 ?>

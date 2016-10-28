@@ -8,6 +8,9 @@
 require_once('Controller.php');
 
 class MainController extends Controller {
+//--------------------------------------//
+//     Main operations controller	//
+//--------------------------------------//
 	private $data = false;
 
 	public function __construct() {
@@ -15,7 +18,7 @@ class MainController extends Controller {
 		$this->action = $_POST['page'] ? $_POST['page'] : ($_GET['page'] ? $_GET['page'] : false);
 	}
 
-	//secect action for current page
+	//recive action and run needed method
 	public function action($action = false) {
 		if (isset($this->action) || $action) {
 			$this->action = $action ? $action : $this->action;
@@ -28,6 +31,7 @@ class MainController extends Controller {
 		else $this->main(); 
 	}
 
+	//login
 	private function login() {
 		if (isset($this->data['username']) && !empty($this->data['password'])) {
 			$if_logged = $this->model->login($this->data);
@@ -41,6 +45,7 @@ class MainController extends Controller {
 		$this->run('login', 'ZeLog | Login', $this->data);
 	}
 
+	//logout	
 	private function logout() {
 		$this->model->logout();
 		$this->go();
@@ -51,6 +56,7 @@ class MainController extends Controller {
 		$this->run('main', 'ZeLog | Main', $data);
 	}
 
+	//register new users
 	private function register() {
 		if (!empty($this->data['username']) && !empty($this->data['password']) && !empty($this->data['email'])) {
 			if ($this->data['password'] == $this->data['cpassword']) {
@@ -64,6 +70,7 @@ class MainController extends Controller {
 		$this->run('register', 'ZeLog | Register', $this->data);
 	}
 
+	//run search
 	private function search() {
 		$this->data['results'] = $this->model->search($this->data['search']);
 		$this->main($this->data);
