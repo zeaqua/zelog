@@ -16,11 +16,31 @@ class Password {
 	const COST = 14;//define recursive depth
 
 	public static function hash($password) {//hash password
-		return password_hash($password, self::HASH, ['cost' => self::COST]);
+		//php 5.5+ function for hashing passwords
+		$hash = password_hash($password, self::HASH, ['cost' => self::COST]); 
+
+		//USING LIBSODIUM
+		//$hash = \Sodium\crypto_pwhash_str($password, \Sodium\CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, \Sodium\CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE );
+
+		//using base64
+		//$hash = base64_encode($password);
+
+		return $hash;
 	}
 
 	public static function verify($password, $hash) {//verify given password with hash
-		return password_verify($password, $hash);
+		//php 5.5+ function for hashing passwords
+		$verify = password_verify($password, $hash);
+
+		/*USING LIBSODIUM
+		$verify = \Sodium\crypto_pwhash_str_verify($hash, $password);
+		//wipe the plaintext password from memory
+		\Sodium\memzero($password);*/
+		
+		//if (base64_decode($hash) == $password) $verify = true;
+		//else $verify = false;
+
+		return $verify;
 	}
 }
 
