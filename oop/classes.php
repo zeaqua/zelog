@@ -16,6 +16,7 @@ class Password {
 	const COST = 14;//define recursive depth
 
 	public static function hash($password) {//hash password
+
 		//php 5.5+ function for hashing passwords
 		$hash = password_hash($password, self::HASH, ['cost' => self::COST]); 
 
