@@ -14,33 +14,60 @@ class Password {
 
 	const HASH = PASSWORD_DEFAULT;//use default hash algoritm of current PHP version
 	const COST = 14;//define recursive depth
+	const SALT = '$2a$07$usesomadasdsadsadsadasdasdasdsadesillystringfors';
+	const METHOD = 'password_hash';//password_hash, crypt, libsodium, base64;
 
 	public static function hash($password) {//hash password
+		$hash = false;
+		switch (self::METHOD) {
+			case 'password_hash':
+				//php 5.5+ function for hashing passwords
+				$hash = password_hash($password, self::HASH, ['cost' => self::COST]); 
+				break;
 
-		//php 5.5+ function for hashing passwords
-		$hash = password_hash($password, self::HASH, ['cost' => self::COST]); 
+			case 'libsodium':
+				//USING LIBSODIUM
+				$hash = \Sodium\crypto_pwhash_str($password, \Sodium\CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, \Sodium\CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE );
+				break;
 
-		//USING LIBSODIUM
-		//$hash = \Sodium\crypto_pwhash_str($password, \Sodium\CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE, \Sodium\CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE );
+			case 'crypt':
+				//php 5.3 using crypt
+				$hash = crypt($password, SALT);
+				break;
 
-		//using base64
-		//$hash = base64_encode($password);
-
+			case 'base64':
+				//using base64
+				$hash = base64_encode($password);
+				break;
+		}
 		return $hash;
 	}
 
 	public static function verify($password, $hash) {//verify given password with hash
-		//php 5.5+ function for hashing passwords
-		$verify = password_verify($password, $hash);
+		$verify = false;
+		switch (self::METHOD) {
+			case 'password_hash':
+				//php 5.5+ function for hashing passwords
+				$verify = password_verify($password, $hash);
+				break;
 
-		/*USING LIBSODIUM
-		$verify = \Sodium\crypto_pwhash_str_verify($hash, $password);
-		//wipe the plaintext password from memory
-		\Sodium\memzero($password);*/
-		
-		//if (base64_decode($hash) == $password) $verify = true;
-		//else $verify = false;
+			case 'libsodium':
+				//using libsodium
+				$verify = \Sodium\crypto_pwhash_str_verify($hash, $password);
+				//wipe the plaintext password from memory
+				\Sodium\memzero($password);
+				break;
 
+			case 'crypt':
+				//php 5.3 using crypt
+				$verify = ($hash == crypt($password, SALT));
+				break;
+
+			case 'base64':
+				//using base64
+				$verify = (base64_decode($hash) == $password);
+				break;
+		}
 		return $verify;
 	}
 }
