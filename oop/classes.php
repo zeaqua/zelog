@@ -22,7 +22,7 @@ class Password {
 		switch (self::METHOD) {
 			case 'password_hash':
 				//php 5.5+ function for hashing passwords
-				$hash = password_hash($password, self::HASH, ['cost' => self::COST]); 
+				$hash = password_hash($password, self::HASH, array('cost' => self::COST)); 
 				break;
 
 			case 'libsodium':
